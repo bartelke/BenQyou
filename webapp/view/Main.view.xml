@@ -1,0 +1,8 @@
+<mvc:View controllerName="bq.benqyou.controller.Main"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:u="sap.ui.unified"
+    xmlns="sap.m">
+    <Page id="page" title="{i18n>title}">
+    <u:FileUploader id="fileUploader" change=".onFileUpload"/>
+    </Page>
+</mvc:View>
