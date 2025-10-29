@@ -26,7 +26,7 @@
                     <Text text="{loaderModel>value}" />
                     <HBox>
                         <Button icon="sap-icon://edit" text="{i18n>edit}" class="sapUiSmallMarginEnd"/>
-                        <Button icon="sap-icon://delete" text="{i18n>delete}" type="Negative"/>
+                        <Button icon="sap-icon://delete" text="{i18n>delete}" type="Negative" press=".onPressDelete"/>
                     </HBox>
 				</cells>
 			</ColumnListItem>

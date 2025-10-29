@@ -29,6 +29,7 @@ sap.ui.define([
                     console.log("pages: ", pdf.numPages);
 
                     const allLines = [];
+                    let id = 0;
 
                     for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
                         const page = await pdf.getPage(pageNum);
@@ -53,13 +54,13 @@ sap.ui.define([
                             const parts = line.split("=");
                             const key = parts[0];
                             const value = parts[1] !== undefined ? parts[1] : null;
-                            allLines.push({key, value});
+                            allLines.push({ id, key, value });
+                            id += 1;
                         });
                     }
 
                     oModel.setData(allLines);
                     that.onOpenDialog();
-                    debugger
                 } catch (err) {
                     console.error("Error while loading PDF file: ", err);
                 }
@@ -73,6 +74,16 @@ sap.ui.define([
             });
 
             this.oDialog.open();
+        },
+        onPressDelete: function (oEvent) {
+            const idToRemove = oEvent.getSource().getBindingContext("loaderModel").getProperty("id");
+            const oModel = this.getView().getModel("loaderModel");
+            const data = oModel.getData();
+            const index = data.findIndex(item => item.id === idToRemove);
+            if (index !== -1) {
+                data.splice(index, 1); 
+                oModel.refresh(true);
+            }
         }
     });
 });
