@@ -54,6 +54,9 @@
         "settings": {
           "bundleName": "bq.benqyou.i18n.i18n"
         }
+      },
+      "loaderModel": {
+        "type": "sap.ui.model.json.JSONModel"
       }
     },
     "resources": {
