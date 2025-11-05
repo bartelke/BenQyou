@@ -6,11 +6,15 @@ sap.ui.define([
     return Controller.extend("bq.benqyou.controller.Main", {
         onInit() {
         },
+        /**
+        * Load PDF file and parse it into JSON model
+        * @param {Event} oEvent - object with the file loaded with FileUploader
+        */
         onFileUpload: function (oEvent) {
-            const oModel = this.getView().getModel("loaderModel")
+            const oModel = this.getView().getModel("loaderModel");
             const aFiles = oEvent.getParameter("files");
             const oFile = aFiles && aFiles[0];
-            const that = this;
+
             if (!oFile) return;
             const reader = new FileReader();
 
@@ -60,14 +64,18 @@ sap.ui.define([
                     }
 
                     oModel.setData(allLines);
-                    that.onOpenDialog();
+                    oModel.setProperty("/isEditable", false);
+                    this.onOpenDialog();
                 } catch (err) {
                     console.error("Error while loading PDF file: ", err);
                 }
-            };
+            }.bind(this);
 
             reader.readAsArrayBuffer(oFile);
         },
+        /**
+        * Open dialog to configure loaded data
+        */
         onOpenDialog: async function () {
             this.oDialog ??= await this.loadFragment({
                 name: "bq.benqyou.view.Loader"
@@ -75,15 +83,40 @@ sap.ui.define([
 
             this.oDialog.open();
         },
+        /**
+        * Close dialog with configured data
+        */
+        closeDialog: function () {
+            this.oDialog.close();
+        },
+        /**
+        * Submit loaded data and start the quiz
+        */
+        saveData: function () {
+            this.closeDialog();
+        },
+        /**
+        * Delete selected data row from the list
+        * @param {Event} oEvent - object with row ID to delete
+        */
         onPressDelete: function (oEvent) {
             const idToRemove = oEvent.getSource().getBindingContext("loaderModel").getProperty("id");
             const oModel = this.getView().getModel("loaderModel");
             const data = oModel.getData();
             const index = data.findIndex(item => item.id === idToRemove);
             if (index !== -1) {
-                data.splice(index, 1); 
+                data.splice(index, 1);
                 oModel.refresh(true);
             }
+            console.log(data)
+        },
+        /**
+        * Toggle edit of loaded words (change property isEditable to opposite value)
+        */
+        toggleEdit: function () {
+            const oModel = this.getView().getModel("loaderModel");
+            const bCurrentValue = oModel.getProperty("/isEditable");
+            oModel.setProperty("/isEditable", !bCurrentValue);
         }
     });
 });

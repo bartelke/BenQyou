@@ -3,16 +3,17 @@
    xmlns:core="sap.ui.core">
    <Dialog
       id="loaderDialog"
-      title="Hello {/recipient/name}">
+      title="{i18n>loaderHeader}">
+	  <content>
       	<Table id="idProductsTable"
 		    inset="false"
             items="{path: 'loaderModel>/'}"
 		>
 		<columns>
-			<Column>
+			<Column width="420px">
 				<Text text="{i18n>val1}" />
 			</Column>
-            <Column>
+            <Column width="420px">
 				<Text text="{i18n>val2}" />
 			</Column>
             <Column>
@@ -22,15 +23,37 @@
 		<items>
 			<ColumnListItem>
 				<cells>
-					<Text text="{loaderModel>key}" />
-                    <Text text="{loaderModel>value}" />
-                    <HBox>
-                        <Button icon="sap-icon://edit" text="{i18n>edit}" class="sapUiSmallMarginEnd"/>
-                        <Button icon="sap-icon://delete" text="{i18n>delete}" type="Negative" press=".onPressDelete"/>
+					<HBox id="firstLangItems" width="400px">
+						<Text text="{loaderModel>key}" visible="{=!${loaderModel>/isEditable}}" />
+						<Input value="{loaderModel>key}" visible="{loaderModel>/isEditable}" width="380px"/>
+					</HBox>
+					<HBox id="secondLangItems" width="400px">
+						<Text text="{loaderModel>value}" visible="{=!${loaderModel>/isEditable}}"/>
+						<Input value="{loaderModel>value}" visible="{loaderModel>/isEditable}" width="380px"/>
+					</HBox>
+                    <HBox id="actionItems">
+                        <Button icon="sap-icon://delete" text="{i18n>delete}" type="Reject" press=".onPressDelete"/>
                     </HBox>
 				</cells>
 			</ColumnListItem>
 		</items>
 	</Table>
-    </Dialog>
+    </content>
+	<footer>
+			<Toolbar>
+				<content>
+					<ToolbarSpacer />
+					<Button type="Accept"
+							text="{i18n>save}"
+							press=".saveData" />
+					<Button text="{i18n>edit}" type="Neutral" icon="sap-icon://edit" class="sapUiSmallMargin" press=".toggleEdit"/>
+					<Button id="Reject"
+						text="{i18n>close}"
+						type="Transparent"
+						press=".closeDialog"
+						ariaHasPopup="Dialog" />
+				</content>
+			</Toolbar>
+		</footer>
+	</Dialog>
 </core:FragmentDefinition>
