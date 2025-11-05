@@ -2,7 +2,17 @@
     xmlns:mvc="sap.ui.core.mvc"
     xmlns:u="sap.ui.unified"
     xmlns="sap.m">
-    <Page id="page" title="{i18n>title}">
-    <u:FileUploader id="fileUploader" change=".onFileUpload"/>
+    <Page id="page" title="{i18n>title}" showHeader="false">
+    <VBox >
+        <Title text="{i18n>title}" titleStyle="H1" class="sapUiMediumMarginBegin sapUiMediumMarginTop"/>
+        <Title text="{i18n>appDescription}" titleStyle="H4" class="sapUiMediumMarginBegin"/>
+    </VBox>
+    
+    <Panel id="startPanel" class="sapUiMediumMargin" width="auto" headerText="{i18n>startHeader}">
+        <Text text="{i18n>instruction}"/>
+        <Text text="{i18n>example}"/>
+        <u:FileUploader id="fileUploader" width="50%" change=".onFileUpload" />        
+    </Panel>
+    
     </Page>
 </mvc:View>

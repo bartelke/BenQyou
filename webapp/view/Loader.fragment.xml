@@ -10,24 +10,24 @@
             items="{path: 'loaderModel>/'}"
 		>
 		<columns>
-			<Column width="420px">
+			<Column width="40%">
 				<Text text="{i18n>val1}" />
 			</Column>
-            <Column width="420px">
+            <Column width="40%">
 				<Text text="{i18n>val2}" />
 			</Column>
-            <Column>
-				<Text text="{i18n>actions}" />
+            <Column width="20%">
+				<Text text="{i18n>actions}" width="auto"/>
 			</Column>
 		</columns>
 		<items>
 			<ColumnListItem>
 				<cells>
-					<HBox id="firstLangItems" width="400px">
+					<HBox id="firstLangItems" width="100%">
 						<Text text="{loaderModel>key}" visible="{=!${loaderModel>/isEditable}}" />
 						<Input value="{loaderModel>key}" visible="{loaderModel>/isEditable}" width="380px"/>
 					</HBox>
-					<HBox id="secondLangItems" width="400px">
+					<HBox id="secondLangItems" width="100%">
 						<Text text="{loaderModel>value}" visible="{=!${loaderModel>/isEditable}}"/>
 						<Input value="{loaderModel>value}" visible="{loaderModel>/isEditable}" width="380px"/>
 					</HBox>
@@ -45,7 +45,8 @@
 					<ToolbarSpacer />
 					<Button type="Accept"
 							text="{i18n>save}"
-							press=".saveData" />
+							press=".saveData" 
+							icon="sap-icon://save"/>
 					<Button text="{i18n>edit}" type="Neutral" icon="sap-icon://edit" class="sapUiSmallMargin" press=".toggleEdit"/>
 					<Button id="Reject"
 						text="{i18n>close}"

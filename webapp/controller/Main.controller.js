@@ -29,9 +29,6 @@ sap.ui.define([
 
                 try {
                     const pdf = await pdfjsLib.getDocument({ data: typedarray }).promise;
-                    console.log("file name: ", oFile.name);
-                    console.log("pages: ", pdf.numPages);
-
                     const allLines = [];
                     let id = 0;
 
@@ -88,12 +85,14 @@ sap.ui.define([
         */
         closeDialog: function () {
             this.oDialog.close();
+            this.byId("fileUploader").clear();
         },
         /**
         * Submit loaded data and start the quiz
         */
         saveData: function () {
             this.closeDialog();
+            this.byId("startPanel").setVisible(false);
         },
         /**
         * Delete selected data row from the list
@@ -108,7 +107,6 @@ sap.ui.define([
                 data.splice(index, 1);
                 oModel.refresh(true);
             }
-            console.log(data)
         },
         /**
         * Toggle edit of loaded words (change property isEditable to opposite value)
