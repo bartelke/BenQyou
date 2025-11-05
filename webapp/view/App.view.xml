@@ -1,0 +1,9 @@
+<mvc:View controllerName="bq.benqyou.controller.App"
+    displayBlock="true"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m">
+    <Shell>
+        <App id="app">
+        </App>
+    </Shell>
+</mvc:View>
