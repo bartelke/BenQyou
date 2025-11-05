@@ -93,6 +93,7 @@ sap.ui.define([
         saveData: function () {
             this.closeDialog();
             this.byId("startPanel").setVisible(false);
+            // TODO: start quiz here
         },
         /**
         * Delete selected data row from the list
