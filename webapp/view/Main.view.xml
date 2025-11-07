@@ -13,6 +13,7 @@
         <Text text="{i18n>example}"/>
         <u:FileUploader id="fileUploader" width="50%" change=".onFileUpload" />        
     </Panel>
+    <mvc:XMLView id="quizView" viewName="bq.benqyou.view.Quiz" visible="false"/>
     
     </Page>
 </mvc:View>

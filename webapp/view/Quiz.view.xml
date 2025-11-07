@@ -1,0 +1,15 @@
+<mvc:View controllerName="bq.benqyou.controller.Quiz"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:u="sap.ui.unified"
+    xmlns="sap.m">
+    
+    
+    <Panel class="sapUiMediumMargin" width="auto">
+        <FlexBox justifyContent="Center" alignContent="Center" >
+            <Button id="startBtn" text="{i18n>startQuiz}" press=".startQuiz" type="Emphasized"/>
+            <Title id="question" titleStyle="H1" class="sapUiMediumMarginBegin sapUiMediumMarginTop"/>
+        </FlexBox>
+        <Button press=".nextQuestion"/>
+    </Panel>
+    
+</mvc:View>
