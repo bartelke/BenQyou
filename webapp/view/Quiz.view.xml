@@ -6,10 +6,24 @@
     
     <Panel class="sapUiMediumMargin" width="auto">
         <FlexBox justifyContent="Center" alignContent="Center" >
-            <Button id="startBtn" text="{i18n>startQuiz}" press=".startQuiz" type="Emphasized"/>
+            <Button id="startBtn" text="{i18n>startQuiz}" press=".startQuiz" type="Emphasized" visible="true"/>
             <Title id="question" titleStyle="H1" class="sapUiMediumMarginBegin sapUiMediumMarginTop"/>
         </FlexBox>
-        <Button press=".nextQuestion"/>
+
+        <VBox id="questionSection" visible="{loaderModel>/isQuestionVisible}">
+            <FlexBox justifyContent="Center" alignContent="Center" class="sapUiMediumMarginTop">
+            <RadioButtonGroup id="rbg1" columns="2" width="100%" class="sapUiMediumMarginBottom">
+		    	<RadioButton id="RB1-1" text="Long Option Number 1" />
+		    	<RadioButton id="RB1-2" text="Option 2"/>
+		    	<RadioButton id="RB1-3" text="Nr. 3"/>
+		    	<RadioButton id="RB1-4" text="Long Option 4" />
+		    </RadioButtonGroup>
+            </FlexBox>
+            <FlexBox justifyContent="End">
+                <Button icon="sap-icon://navigation-right-arrow" text="{i18n>nextQuestion}" press=".nextQuestion" type="Emphasized"/>          
+            </FlexBox>
+        </VBox>
+        
     </Panel>
     
 </mvc:View>

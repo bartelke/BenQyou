@@ -91,7 +91,9 @@ sap.ui.define(["sap/ui/core/mvc/Controller"], (Controller) => {
       this.closeDialog();
       this.byId("startPanel").setVisible(false);
       this.byId("quizView").setVisible(true);
-      const oData = this.getView().getModel("loaderModel").getData();
+      const oModel = this.getView().getModel("loaderModel");
+      const oData = oModel.getData();
+      oModel.setProperty("/isQuestionVisible", false);
       oData.sort(() => Math.random() - 0.5);
     },
     /**
