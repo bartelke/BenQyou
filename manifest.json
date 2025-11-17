@@ -38,6 +38,9 @@
 		}
 	},
 	"sap.ui5": {
+		"resourceRoots": {
+			"lib": "./lib"
+		},
 		"flexEnabled": true,
 		"dependencies": {
 			"minUI5Version": "1.141.3",
@@ -59,6 +62,9 @@
 						""
 					]
 				}
+			},
+			"loaderModel": {
+				"type": "sap.ui.model.json.JSONModel"
 			}
 		},
 		"resources": {
