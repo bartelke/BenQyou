@@ -52,6 +52,8 @@ sap.ui.define(
 
           this.setAnswers(correctAnswer);
           aData.shift();
+        } else {
+          this.showFinalMessage();
         }
       },
       setAnswers(correctAnswer) {
@@ -74,7 +76,6 @@ sap.ui.define(
 
         // shuffle answers:
         aAnswersToSet.sort(() => Math.random() - 0.5);
-        console.log(aAnswersToSet);
 
         aAnswersToSet.forEach((element) => {
           this.byId(`RB1-${aAnswersToSet.indexOf(element) + 1}`).setText(
@@ -89,7 +90,7 @@ sap.ui.define(
         const oBundle = this.getView().getModel("i18n").getResourceBundle();
 
         if (selectedAnswer === this.prevCorrectAnswer) {
-          MessageToast.show(oBundle.getText("corrextAnswer"));
+          MessageToast.show(oBundle.getText("correctAnswer"));
           return true;
         } else {
           MessageBox.error(
@@ -97,6 +98,23 @@ sap.ui.define(
           );
           return false;
         }
+      },
+      showFinalMessage() {
+        const oBundle = this.getView().getModel("i18n").getResourceBundle();
+        const oMsg = oBundle.getText("finalMessage");
+        MessageBox.information(
+          oMsg
+            .replace(
+              "{0}",
+              this.getView().getModel("loaderModel").getProperty("/correctNum")
+            )
+            .replace("{1}", this._aOriginalQuestions.length),
+          {
+            onClose: () => {
+              location.reload();
+            },
+          }
+        );
       },
     });
   }
