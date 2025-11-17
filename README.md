@@ -18,6 +18,8 @@ I created this app for my own purposes so it is not super complexed but feel fre
 
 ✔ counting your points
 
+![sample](./images/question.png)
+
 ### The name
 
 The app was designed for myself to learn Japanese words. "Benkyou" means "to learn" in Japanese so I added Q which stands for Quiz :)
