@@ -28,7 +28,7 @@ The app was designed for myself to learn Japanese words. "Benkyou" means "to lea
 
 The app is hosted here:
 
-tba
+https://bartelke.github.io/BenQyou/
 
 And you can simply use the app directly from the link. Please prepare .txt or .pdf file with key-value pairs. Each key-value pair should be on a separate line, with the two words in a pair separated by the "=" character.
 
@@ -68,6 +68,12 @@ npm start
 
 command. By default, app should be opened in `http://localhost:8080/index.html`. Please, don't open the app with fiori launchpad sim `test/flp.html#app-preview` because it will cause some issues with the PDF library.
 
+### Build
+To build your app so it can be deployed, run
+```bash
+npm run build
+```
+command. The app will be built automatically using UI5 tools. Install them with ```npm install```.
 ### JSDoc
 
 I used JSDoc comments. You can install JSDoc:
