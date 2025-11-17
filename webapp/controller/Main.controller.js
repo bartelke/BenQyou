@@ -13,59 +13,103 @@ sap.ui.define(["sap/ui/core/mvc/Controller"], (Controller) => {
       const oFile = aFiles && aFiles[0];
 
       if (!oFile) return;
-      const reader = new FileReader();
 
-      reader.onload = async function (e) {
-        const typedarray = new Uint8Array(e.target.result);
+      const fileName = oFile.name.toLowerCase();
 
-        const pdfjsLib = window.pdfjsLib;
-        if (!pdfjsLib) {
-          console.error("Error with PDF.js library.");
-          return;
-        }
+      // -----------------------------
+      // TXT handler
+      // -----------------------------
+      if (fileName.endsWith(".txt")) {
+        const reader = new FileReader();
 
-        try {
-          const pdf = await pdfjsLib.getDocument({ data: typedarray }).promise;
+        reader.onload = function (e) {
+          const text = e.target.result;
+          const lines = text.split(/\r?\n/); // split lines
           const allLines = [];
           let id = 0;
 
-          for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
-            const page = await pdf.getPage(pageNum);
-            const textContent = await page.getTextContent();
+          lines.forEach((line) => {
+            if (!line.trim()) return; // skip empty lines
 
-            // group text fragments by Y - position
-            const linesMap = new Map();
+            const parts = line.split("=");
+            const key = parts[0];
+            const value = parts[1] !== undefined ? parts[1] : null;
 
-            textContent.items.forEach((item) => {
-              const y = Math.round(item.transform[5]);
-              if (!linesMap.has(y)) {
-                linesMap.set(y, []);
-              }
-              linesMap.get(y).push(item.str);
-            });
-
-            // sort by Y - position
-            const sortedYs = Array.from(linesMap.keys()).sort((a, b) => b - a);
-
-            sortedYs.forEach((y) => {
-              const line = linesMap.get(y).join(" ");
-              const parts = line.split("=");
-              const key = parts[0];
-              const value = parts[1] !== undefined ? parts[1] : null;
-              allLines.push({ id, key, value });
-              id += 1;
-            });
-          }
+            allLines.push({ id, key, value });
+            id++;
+          });
 
           oModel.setData(allLines);
           oModel.setProperty("/isEditable", false);
           this.onOpenDialog();
-        } catch (err) {
-          console.error("Error while loading PDF file: ", err);
-        }
-      }.bind(this);
+        }.bind(this);
 
-      reader.readAsArrayBuffer(oFile);
+        reader.readAsText(oFile);
+        return;
+      }
+
+      // -----------------------------
+      // PDF Handler
+      // -----------------------------
+      if (fileName.endsWith(".pdf")) {
+        const reader = new FileReader();
+
+        reader.onload = async function (e) {
+          const typedarray = new Uint8Array(e.target.result);
+          const pdfjsLib = window.pdfjsLib;
+
+          if (!pdfjsLib) {
+            console.error("Error with PDF.js library.");
+            return;
+          }
+
+          try {
+            const pdf = await pdfjsLib.getDocument({ data: typedarray })
+              .promise;
+            const allLines = [];
+            let id = 0;
+
+            for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+              const page = await pdf.getPage(pageNum);
+              const textContent = await page.getTextContent();
+
+              // group lines by Y position
+              const linesMap = new Map();
+
+              textContent.items.forEach((item) => {
+                const y = Math.round(item.transform[5]);
+                if (!linesMap.has(y)) {
+                  linesMap.set(y, []);
+                }
+                linesMap.get(y).push(item.str);
+              });
+
+              // sort (Y - pos)
+              const sortedYs = Array.from(linesMap.keys()).sort(
+                (a, b) => b - a
+              );
+
+              sortedYs.forEach((y) => {
+                const line = linesMap.get(y).join(" ");
+                const parts = line.split("=");
+                const key = parts[0];
+                const value = parts[1] !== undefined ? parts[1] : null;
+                allLines.push({ id, key, value });
+                id++;
+              });
+            }
+
+            oModel.setData(allLines);
+            oModel.setProperty("/isEditable", false);
+            this.onOpenDialog();
+          } catch (err) {
+            console.error("Error while loading PDF file: ", err);
+          }
+        }.bind(this);
+
+        reader.readAsArrayBuffer(oFile);
+        return;
+      }
     },
     /**
      * Open dialog to configure loaded data
