@@ -4,6 +4,9 @@ sap.ui.define(
     "use strict";
 
     return Controller.extend("bq.benqyou.controller.Quiz", {
+      /**
+       * initialize all starting values and run the quiz
+       */
       startQuiz() {
         const oModel = this.getView().getModel("loaderModel");
         // set counters to zero:
@@ -12,7 +15,6 @@ sap.ui.define(
 
         // switch visibility:
         oModel.setProperty("/isQuestionVisible", true);
-        this.byId("startBtn").setVisible(false);
 
         // create deep copy of original questions:
         this._aOriginalQuestions = JSON.parse(
@@ -20,6 +22,10 @@ sap.ui.define(
         );
         this.nextQuestion(true);
       },
+      /**
+       * handle next question logic
+       * @param {Boolean} bSkipAnswerCheck - flag to skip answer checking
+       */
       nextQuestion(bSkipAnswerCheck) {
         const oModel = this.getView().getModel("loaderModel");
         const aData = oModel.getData();
@@ -56,6 +62,10 @@ sap.ui.define(
           this.showFinalMessage();
         }
       },
+      /**
+       * Generate new question with answers
+       * @param {String} correctAnswer - correct answer for new question
+       */
       setAnswers(correctAnswer) {
         let copiedAnswers = JSON.parse(
           JSON.stringify(this._aOriginalQuestions)
@@ -83,6 +93,10 @@ sap.ui.define(
           );
         });
       },
+      /**
+       * check if answer that user selected is correct
+       * @returns {Boolean} - whether the answer was correct
+       */
       checkAnswer() {
         const selectedAnswer = this.byId("buttonGroup")
           .getSelectedButton()
@@ -99,6 +113,9 @@ sap.ui.define(
           return false;
         }
       },
+      /**
+       * Show final message with quiz results and reload the app
+       */
       showFinalMessage() {
         const oBundle = this.getView().getModel("i18n").getResourceBundle();
         const oMsg = oBundle.getText("finalMessage");
