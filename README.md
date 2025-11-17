@@ -1,36 +1,31 @@
-## Application Details
-|               |
-| ------------- |
-|**Generation Date and Time**<br>Wed Oct 29 2025 15:40:18 GMT+0100 (Central European Standard Time)|
-|**App Generator**<br>SAP Fiori Application Generator|
-|**App Generator Version**<br>1.19.1|
-|**Generation Platform**<br>Visual Studio Code|
-|**Template Used**<br>Basic|
-|**Service Type**<br>None|
-|**Service URL**<br>N/A|
-|**Module Name**<br>benqyou|
-|**Application Title**<br>App Title|
-|**Namespace**<br>bq|
-|**UI5 Theme**<br>sap_horizon|
-|**UI5 Version**<br>1.141.3|
-|**Enable Code Assist Libraries**<br>False|
-|**Enable TypeScript**<br>False|
-|**Add Eslint configuration**<br>False|
+# BenQyou v.1.0.0
 
-## benqyou
+A simple quiz app for practising foreign languages.
 
-An SAP Fiori application.
+## About
 
-### Starting the generated app
+I created this app for my own purposes so it is not super complexed but feel free to use it or fork it! The idea was simple: you have to upload key-value pairs and you'll get a quiz.
 
--   This app has been generated using the SAP Fiori tools - App Generator, as part of the SAP Fiori tools suite.  To launch the generated application, run the following from the generated application root folder:
+### The name
 
-```
-    npm start
-```
+The app was designed for myself to learn Japanese words. "Benkyou" means "to learn" in Japanese so I added Q which stands for Quiz :)
 
-#### Pre-requisites:
+## How to use
 
-1. Active NodeJS LTS (Long Term Support) version and associated supported NPM version.  (See https://nodejs.org)
+The app is hosted here:
 
+tba
 
+And you can simply use the app directly from the link. Please prepare .txt or .pdf file with key-value pairs. Each key-value pair should be on a separate line, with the two words in a pair separated by the "=" character.
+
+See the example below:
+家 = house
+電気 = electricity
+大学 = university
+...
+
+Please enter more than 4 examples. You can edit some words or delete them from your list from the app before starting the quiz as shown below. Make sure that there are no empty words.
+
+![edit](./images/edit.png)
+
+Then you can start the quiz. You will see questions in random order with randomly choosen answers (one is correct). Press `Next Question` to check the answer and go next.
