@@ -19,8 +19,9 @@
             <ObjectNumber number="{loaderModel>/wrongNum}" state="Error" />
         </f:SimpleForm>
 
+        <Text id="quizDesc" text="{i18n>quizDesc}" visible="{=${loaderModel>/isQuestionVisible}?false:true}"/>
         <FlexBox justifyContent="Center" alignContent="Center" >
-            <Button id="startBtn" text="{i18n>startQuiz}" press=".startQuiz" type="Emphasized" visible="true"/>
+            <Button id="startBtn" text="{i18n>startQuiz}" press=".startQuiz" type="Emphasized" class="sapUiMediumMargin" visible="{=${loaderModel>/isQuestionVisible}?false:true}"/>
             <Title id="question" titleStyle="H1" class="sapUiMediumMarginBegin sapUiMediumMarginTop"/>
         </FlexBox>
         

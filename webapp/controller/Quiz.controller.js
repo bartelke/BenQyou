@@ -15,7 +15,6 @@ sap.ui.define(
 
         // switch visibility:
         oModel.setProperty("/isQuestionVisible", true);
-        this.byId("startBtn").setVisible(false);
 
         // create deep copy of original questions:
         this._aOriginalQuestions = JSON.parse(
