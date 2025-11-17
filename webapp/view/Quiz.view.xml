@@ -11,17 +11,31 @@
         </FlexBox>
 
         <VBox id="questionSection" visible="{loaderModel>/isQuestionVisible}">
+            
             <FlexBox justifyContent="Center" alignContent="Center" class="sapUiMediumMarginTop">
-            <RadioButtonGroup id="rbg1" columns="2" width="100%" class="sapUiMediumMarginBottom">
-		    	<RadioButton id="RB1-1" text="Long Option Number 1" />
-		    	<RadioButton id="RB1-2" text="Option 2"/>
-		    	<RadioButton id="RB1-3" text="Nr. 3"/>
-		    	<RadioButton id="RB1-4" text="Long Option 4" />
+            <RadioButtonGroup id="buttonGroup" columns="2" width="100%" class="sapUiMediumMarginBottom">
+		    	<RadioButton id="RB1-1"/>
+		    	<RadioButton id="RB1-2"/>
+		    	<RadioButton id="RB1-3"/>
+                <RadioButton id="RB1-4"/>
 		    </RadioButtonGroup>
             </FlexBox>
             <FlexBox justifyContent="End">
-                <Button icon="sap-icon://navigation-right-arrow" text="{i18n>nextQuestion}" press=".nextQuestion" type="Emphasized"/>          
+                <Label id="pageNum" text="0/0" class="sapUiTinyMargin"/>
+                <Button icon="sap-icon://navigation-right-arrow" text="{i18n>nextQuestion}" press=".nextQuestion(false)" type="Emphasized"/>          
             </FlexBox>
+            <HBox >
+            <Label  text="Correct answers: " class="sapUiSmallMarginEnd"/>
+            <ObjectNumber
+				number="{loaderModel>/correctNum}"
+				state="Success" />
+            </HBox>
+            <HBox >
+            <Label  text="Wrong answers: " class="sapUiSmallMarginEnd"/>
+            <ObjectNumber
+				number="{loaderModel>/wrongNum}"
+				state="Error" />
+            </HBox>
         </VBox>
         
     </Panel>
